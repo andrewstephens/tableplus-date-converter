@@ -13,20 +13,19 @@ var onRun = function(context) {
         return;
     }
 
-    var a = new Date(value * 1000);
-    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    var year = a.getFullYear();
-    var month = months[a.getMonth()];
-    var date = a.getDate();
-    var hour = a.getHours();
-    var min = a.getMinutes();
-    var sec = a.getSeconds();
+    let dateTimeString = new Date(value * 1000).toLocaleDateString('en-US', { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric',
+        timeZone: 'utc',
+        hour: 'numeric', 
+        minute: 'numeric',
+        second: 'numeric'
+    });
 
-    var time = month + ' ' + date + ', ' + year + ' ' + hour + ':' + min + ':' + sec;
+    SystemService.notify('Date', dateTimeString);
 
-    SystemService.notify('Date', time);
-
-    SystemService.insertToClipboard(time);
+    SystemService.insertToClipboard(dateTimeString);
 
     context.update();
 };
